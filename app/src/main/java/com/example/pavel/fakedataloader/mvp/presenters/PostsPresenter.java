@@ -39,6 +39,7 @@ public class PostsPresenter extends MvpPresenter<PostsView> {
 					getViewState().setPosts(posts);
 				}, error -> {
 					getViewState().hideLoadingProgress();
+					getViewState().showErrorText();
 				});
 	}
 }

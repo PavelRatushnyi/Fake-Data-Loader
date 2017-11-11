@@ -10,5 +10,9 @@ public interface PostsView extends MvpView {
 
 	void hideLoadingProgress();
 
+	void showErrorText();
+
+	void hideErrorText();
+
 	void setPosts(List<Post> posts);
 }

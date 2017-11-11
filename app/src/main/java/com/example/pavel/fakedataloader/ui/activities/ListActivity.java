@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
@@ -27,6 +28,7 @@ public class ListActivity extends MvpAppCompatActivity implements PostsView, Lis
 
 	private RecyclerView mPostsRecyclerView;
 	private ProgressBar mLoadingProgressBar;
+	private TextView mErrorText;
 
 	private PostsAdapter mPostsAdapter;
 
@@ -37,6 +39,7 @@ public class ListActivity extends MvpAppCompatActivity implements PostsView, Lis
 
 		mLoadingProgressBar = (ProgressBar) findViewById(R.id.loading_progress_bar);
 		mPostsRecyclerView = (RecyclerView) findViewById(R.id.posts_list_recycler_view);
+		mErrorText = (TextView) findViewById(R.id.error_text_view);
 		LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
 		mPostsRecyclerView.setLayoutManager(linearLayoutManager);
 		DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mPostsRecyclerView.getContext(), linearLayoutManager.getOrientation());
@@ -64,6 +67,16 @@ public class ListActivity extends MvpAppCompatActivity implements PostsView, Lis
 	public void hideLoadingProgress() {
 		mLoadingProgressBar.setVisibility(View.GONE);
 		mPostsRecyclerView.setVisibility(View.VISIBLE);
+	}
+
+	@Override
+	public void showErrorText() {
+		mErrorText.setVisibility(View.VISIBLE);
+	}
+
+	@Override
+	public void hideErrorText() {
+		mErrorText.setVisibility(View.GONE);
 	}
 
 	@Override
