@@ -25,7 +25,7 @@ public class ListActivity extends MvpAppCompatActivity implements PostsView, Lis
 	@InjectPresenter
 	ListPresenter mListPresenter;
 
-	private RecyclerView mPhrasesRecyclerView;
+	private RecyclerView mPostsRecyclerView;
 	private ProgressBar mLoadingProgressBar;
 
 	private PostsAdapter mPostsAdapter;
@@ -36,39 +36,39 @@ public class ListActivity extends MvpAppCompatActivity implements PostsView, Lis
 		setContentView(R.layout.activity_posts_list);
 
 		mLoadingProgressBar = (ProgressBar) findViewById(R.id.loading_progress_bar);
-		mPhrasesRecyclerView = (RecyclerView) findViewById(R.id.posts_list_recycler_view);
+		mPostsRecyclerView = (RecyclerView) findViewById(R.id.posts_list_recycler_view);
 		LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-		mPhrasesRecyclerView.setLayoutManager(linearLayoutManager);
-		DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mPhrasesRecyclerView.getContext(), linearLayoutManager.getOrientation());
-		mPhrasesRecyclerView.addItemDecoration(dividerItemDecoration);
+		mPostsRecyclerView.setLayoutManager(linearLayoutManager);
+		DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mPostsRecyclerView.getContext(), linearLayoutManager.getOrientation());
+		mPostsRecyclerView.addItemDecoration(dividerItemDecoration);
 
 		mPostsAdapter = new PostsAdapter(getMvpDelegate());
 		mPostsAdapter.setPostsAdapterListener(view -> {
-			int position = mPhrasesRecyclerView.getChildAdapterPosition(view);
+			int position = mPostsRecyclerView.getChildAdapterPosition(view);
 			if (position == RecyclerView.NO_POSITION) {
 				return;
 			}
 
 			mListPresenter.onPostSelection(mPostsAdapter.getItem(position));
 		});
-		mPhrasesRecyclerView.setAdapter(mPostsAdapter);
+		mPostsRecyclerView.setAdapter(mPostsAdapter);
 	}
 
 	@Override
 	public void showLoadingProgress() {
-		mPhrasesRecyclerView.setVisibility(View.GONE);
+		mPostsRecyclerView.setVisibility(View.GONE);
 		mLoadingProgressBar.setVisibility(View.VISIBLE);
 	}
 
 	@Override
 	public void hideLoadingProgress() {
 		mLoadingProgressBar.setVisibility(View.GONE);
-		mPhrasesRecyclerView.setVisibility(View.VISIBLE);
+		mPostsRecyclerView.setVisibility(View.VISIBLE);
 	}
 
 	@Override
-	public void setPhrases(List<Post> posts) {
-		mPostsAdapter.setPhrases(posts);
+	public void setPosts(List<Post> posts) {
+		mPostsAdapter.setPosts(posts);
 	}
 
 	@Override

@@ -31,7 +31,7 @@ public class PostsAdapter extends MvpRecyclerListAdapter<PostsAdapter.PostHolder
 		mPostsAdapterListener = postsAdapterListener;
 	}
 
-	public void setPhrases(List<Post> posts) {
+	public void setPosts(List<Post> posts) {
 		mPosts = new ArrayList<>(posts);
 		notifyDataSetChanged();
 	}
@@ -71,7 +71,7 @@ public class PostsAdapter extends MvpRecyclerListAdapter<PostsAdapter.PostHolder
 		private MvpDelegate mMvpDelegate;
 
 		@ProvidePresenter
-		PostPresenter providePhrasePresenter() {
+		PostPresenter providePostPresenter() {
 			return new PostPresenter(mPost);
 		}
 
@@ -99,7 +99,7 @@ public class PostsAdapter extends MvpRecyclerListAdapter<PostsAdapter.PostHolder
 		}
 
 		@Override
-		public void showPhrase(Post post) {
+		public void showPost(Post post) {
 			mTitle.setText(post.getTitle());
 			mBody.setText(post.getBody());
 		}

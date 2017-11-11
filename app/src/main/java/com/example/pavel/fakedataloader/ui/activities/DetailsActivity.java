@@ -51,7 +51,7 @@ public class DetailsActivity extends MvpAppCompatActivity implements PostView {
 	}
 
 	@Override
-	public void showPhrase(Post post) {
+	public void showPost(Post post) {
 		mPost = post;
 
 		mIdTextView.setText(post.getId());

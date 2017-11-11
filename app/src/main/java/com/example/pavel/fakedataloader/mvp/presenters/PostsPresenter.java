@@ -24,19 +24,19 @@ public class PostsPresenter extends MvpPresenter<PostsView> {
 	@Override
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
-		loadPhrases();
+		loadPosts();
 	}
 
-	private void loadPhrases() {
+	private void loadPosts() {
 
 		getViewState().showLoadingProgress();
 
-		mPostsService.getPhrases()
+		mPostsService.getPosts()
 				.subscribeOn(Schedulers.io())
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribe(posts -> {
 					getViewState().hideLoadingProgress();
-					getViewState().setPhrases(posts);
+					getViewState().setPosts(posts);
 				}, error -> {
 					getViewState().hideLoadingProgress();
 				});

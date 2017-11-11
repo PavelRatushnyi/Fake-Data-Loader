@@ -14,7 +14,7 @@ public class PostsService {
 		mPostsApi = postsApi;
 	}
 
-	public Observable<List<Post>> getPhrases() {
-		return mPostsApi.getPhrases();
+	public Observable<List<Post>> getPosts() {
+		return mPostsApi.getPosts();
 	}
 }

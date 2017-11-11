@@ -9,5 +9,5 @@ import retrofit2.http.GET;
 
 public interface PostsApi {
 	@GET("/posts")
-	Observable<List<Post>> getPhrases();
+	Observable<List<Post>> getPosts();
 }

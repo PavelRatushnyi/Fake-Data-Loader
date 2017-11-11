@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:mContext="com.example.pavel.phrasesloader.ui.activities.PhrasesListActivity">
+    tools:context="com.example.pavel.fakedataloader.ui.activities.ListActivity">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/posts_list_recycler_view"

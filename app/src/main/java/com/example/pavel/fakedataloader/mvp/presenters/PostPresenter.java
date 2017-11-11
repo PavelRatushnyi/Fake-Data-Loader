@@ -18,6 +18,6 @@ public class PostPresenter extends MvpPresenter<PostView> {
 	@Override
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
-		getViewState().showPhrase(mPost);
+		getViewState().showPost(mPost);
 	}
 }

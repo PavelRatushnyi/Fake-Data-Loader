@@ -9,10 +9,10 @@ import dagger.Module;
 import dagger.Provides;
 
 @Module(includes = {ApiModule.class})
-public class PhrasesModule {
+public class PostsModule {
 	@Provides
 	@Singleton
-	public PostsService providePhrasesService(PostsApi postsApi) {
+	public PostsService providePostsService(PostsApi postsApi) {
 		return new PostsService(postsApi);
 	}
 }

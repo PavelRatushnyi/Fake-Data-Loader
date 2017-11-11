@@ -4,5 +4,5 @@ import com.arellomobile.mvp.MvpView;
 import com.example.pavel.fakedataloader.mvp.models.Post;
 
 public interface PostView extends MvpView {
-	void showPhrase(Post post);
+	void showPost(Post post);
 }
