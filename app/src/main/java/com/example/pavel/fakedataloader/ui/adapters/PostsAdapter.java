@@ -19,11 +19,16 @@ import java.util.List;
 
 public class PostsAdapter extends MvpRecyclerListAdapter<PostsAdapter.PostHolder> {
 
+	private PostsAdapterListener mPostsAdapterListener;
 	private List<Post> mPosts;
 
 	public PostsAdapter(MvpDelegate<?> parentDelegate) {
 		super(parentDelegate, String .valueOf(0));
 		mPosts = new ArrayList<>();
+	}
+
+	public void setPostsAdapterListener(PostsAdapterListener postsAdapterListener) {
+		mPostsAdapterListener = postsAdapterListener;
 	}
 
 	public void setPhrases(List<Post> posts) {
@@ -34,6 +39,11 @@ public class PostsAdapter extends MvpRecyclerListAdapter<PostsAdapter.PostHolder
 	@Override
 	public PostHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 		View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.post_list_item, parent, false);
+		view.setOnClickListener(v -> {
+			if (mPostsAdapterListener != null) {
+				mPostsAdapterListener.onItemClick(v);
+			}
+		});
 		return new PostHolder(view);
 	}
 
@@ -46,6 +56,10 @@ public class PostsAdapter extends MvpRecyclerListAdapter<PostsAdapter.PostHolder
 	@Override
 	public int getItemCount() {
 		return mPosts.size();
+	}
+
+	public Post getItem(int position) {
+		return mPosts.get(position);
 	}
 
 	public class PostHolder extends RecyclerView.ViewHolder implements PostView {
@@ -101,5 +115,9 @@ public class PostsAdapter extends MvpRecyclerListAdapter<PostsAdapter.PostHolder
 			}
 			return mMvpDelegate;
 		}
+	}
+
+	public interface PostsAdapterListener {
+		void onItemClick(View view);
 	}
 }

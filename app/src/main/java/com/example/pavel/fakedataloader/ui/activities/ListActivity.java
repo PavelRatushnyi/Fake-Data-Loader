@@ -11,15 +11,19 @@ import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.example.pavel.fakedataloader.R;
 import com.example.pavel.fakedataloader.mvp.models.Post;
+import com.example.pavel.fakedataloader.mvp.presenters.ListPresenter;
 import com.example.pavel.fakedataloader.mvp.presenters.PostsPresenter;
+import com.example.pavel.fakedataloader.mvp.views.ListView;
 import com.example.pavel.fakedataloader.mvp.views.PostsView;
 import com.example.pavel.fakedataloader.ui.adapters.PostsAdapter;
 
 import java.util.List;
 
-public class PostsListActivity extends MvpAppCompatActivity implements PostsView {
+public class ListActivity extends MvpAppCompatActivity implements PostsView, ListView {
 	@InjectPresenter
 	PostsPresenter mPostsPresenter;
+	@InjectPresenter
+	ListPresenter mListPresenter;
 
 	private RecyclerView mPhrasesRecyclerView;
 	private ProgressBar mLoadingProgressBar;
@@ -39,6 +43,14 @@ public class PostsListActivity extends MvpAppCompatActivity implements PostsView
 		mPhrasesRecyclerView.addItemDecoration(dividerItemDecoration);
 
 		mPostsAdapter = new PostsAdapter(getMvpDelegate());
+		mPostsAdapter.setPostsAdapterListener(view -> {
+			int position = mPhrasesRecyclerView.getChildAdapterPosition(view);
+			if (position == RecyclerView.NO_POSITION) {
+				return;
+			}
+
+			mListPresenter.onPostSelection(mPostsAdapter.getItem(position));
+		});
 		mPhrasesRecyclerView.setAdapter(mPostsAdapter);
 	}
 
@@ -57,5 +69,10 @@ public class PostsListActivity extends MvpAppCompatActivity implements PostsView
 	@Override
 	public void setPhrases(List<Post> posts) {
 		mPostsAdapter.setPhrases(posts);
+	}
+
+	@Override
+	public void showDetails(Post post) {
+		DetailsActivity.showInstance(this, post);
 	}
 }

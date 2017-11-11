@@ -1,8 +1,11 @@
 package com.example.pavel.fakedataloader.mvp.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
-public class Post {
+public class Post implements Parcelable {
 	@SerializedName("id")
 	private String mId;
 	@SerializedName("userId")
@@ -12,12 +15,24 @@ public class Post {
 	@SerializedName("body")
 	private String mBody;
 
-	public Post(String id, String userId, String title, String body) {
-		mId = id;
-		mUserId = userId;
-		mTitle = title;
-		mBody = body;
+	public Post(Parcel in) {
+		mId = in.readString();
+		mUserId = in.readString();
+		mTitle = in.readString();
+		mBody = in.readString();
 	}
+
+	public static final Creator<Post> CREATOR = new Creator<Post>() {
+		@Override
+		public Post createFromParcel(Parcel in) {
+			return new Post(in);
+		}
+
+		@Override
+		public Post[] newArray(int size) {
+			return new Post[size];
+		}
+	};
 
 	public String getId() {
 		return mId;
@@ -49,5 +64,18 @@ public class Post {
 
 	public void setBody(String body) {
 		mBody = body;
+	}
+
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel parcel, int i) {
+		parcel.writeString(mId);
+		parcel.writeString(mUserId);
+		parcel.writeString(mTitle);
+		parcel.writeString(mBody);
 	}
 }
